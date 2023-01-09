@@ -28,6 +28,19 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # ------------------------------- Other started -------------------------------
 #
 #
+# Change Firewall
+rm -rf package/network/config/{firewall4,firewall,netifd}
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{firewall4,firewall,netifd} package/network/config/
+
+# Change nftable
+rm -rf package/network/utils/nftables
+svn co https://github.com/kiddin9/openwrt-packages/trunk/nftables package/network/utils/nftables
+# Add fullconenat
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{fullconenat,nft-fullcone} package/
+
+# Add turboacc
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,shortcut-fe,pdnsd-alt,dnsforwarder,dnsproxy} package/
+
 # Change luci-base
 rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status} feeds/luci/modules/
