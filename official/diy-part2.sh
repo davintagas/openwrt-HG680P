@@ -28,6 +28,8 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # ------------------------------- Other started -------------------------------
 #
 #
+rm -rf feeds/packages/net/{trojan-go,v2ray-core,v2ray-geodata}
+
 # Change Firewall
 rm -rf package/network/config/{firewall4,firewall,netifd}
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{firewall4,firewall,netifd} package/network/config/
