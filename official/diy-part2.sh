@@ -29,6 +29,8 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 #
 #
 rm -rf feeds/packages/net/{trojan-go,v2ray-core,v2ray-geodata}
+rm -rf package/libs/libnftnl
+svn co https://github.com/kiddin9/openwrt-packages/trunk/libnftnl package/libs/libnftnl
 
 # Change Firewall
 rm -rf package/network/config/{firewall4,firewall,netifd}
