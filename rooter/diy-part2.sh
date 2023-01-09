@@ -24,7 +24,8 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 #
 # ------------------------------- Main source ends -------------------------------
 
-svn co https://github.com/openwrt/packages/branches/openwrt-22.03/utils/parted package/parted
+# svn co https://github.com/openwrt/packages/branches/openwrt-22.03/utils/parted package/parted
+svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/utils/dtc package/dtc
 
 # Change luci base && status
 rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
