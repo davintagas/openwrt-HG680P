@@ -52,6 +52,10 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{fullconenat,nft-fullco
 # Add turboacc
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,shortcut-fe,pdnsd-alt,dnsforwarder,dnsproxy} package/
 
+# Change luci-app-firewall
+rm -rf feeds/luci/applications/luci-app-firewall
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-firewall feeds/luci/applications/luci-app-firewall
+
 # Change luci-base
 rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status} feeds/luci/modules/
