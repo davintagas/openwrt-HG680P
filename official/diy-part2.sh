@@ -45,6 +45,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{firewall4,firewall,net
 # Change nftable
 rm -rf package/network/utils/nftables
 svn co https://github.com/kiddin9/openwrt-packages/trunk/nftables package/network/utils/nftables
+
 # Add fullconenat
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{fullconenat,nft-fullcone} package/
 
