@@ -49,9 +49,6 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/nftables package/networ
 # Add fullconenat
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{fullconenat,nft-fullcone} package/
 
-# Add luci-app-bandwidthd
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bandwidthd package/luci-app-bandwidthd
-
 # Add turboacc
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,shortcut-fe,pdnsd-alt,dnsforwarder,dnsproxy} package/
 
