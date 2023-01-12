@@ -36,7 +36,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/libnftnl package/libs/l
 
 # Change dnsmasq
 rm -rf package/network/services/dnsmasq
-svn co https://github.com/kiddin9/openwrt-packages/trunk/dnsmasq package/network/services/dnsmasq
+svn co https://github.com/openwrt/openwrt/trunk/package/network/services/dnsmasq package/network/services/dnsmasq
 
 # Change Firewall
 rm -rf package/network/config/{firewall4,firewall,netifd}
