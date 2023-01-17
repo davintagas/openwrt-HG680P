@@ -28,35 +28,7 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # ------------------------------- Other started -------------------------------
 #
 #
-rm -rf feeds/packages/net/{trojan-go,v2ray-core,v2ray-geodata}
-
-# Change libnftnl
-rm -rf package/libs/libnftnl
-svn co https://github.com/kiddin9/openwrt-packages/trunk/libnftnl package/libs/libnftnl
-
-# Change dnsmasq
-rm -rf package/network/services/dnsmasq
-svn co https://github.com/openwrt/openwrt/trunk/package/network/services/dnsmasq package/network/services/dnsmasq
-
-# Change Firewall
-rm -rf package/network/config/{firewall4,firewall,netifd}
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{firewall4,firewall,netifd} package/network/config/
-
-# Change nftable
-rm -rf package/network/utils/nftables
-svn co https://github.com/kiddin9/openwrt-packages/trunk/nftables package/network/utils/nftables
-
-# Add fullconenat
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{fullconenat,nft-fullcone} package/
-
-# Add turboacc
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,shortcut-fe,pdnsd-alt,dnsforwarder,dnsproxy} package/
-
-# Change luci-app-firewall
-rm -rf feeds/luci/applications/luci-app-firewall
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-firewall feeds/luci/applications/luci-app-firewall
-
-# Change luci-base
+# Change luci-base && luci-mod-status
 rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status} feeds/luci/modules/
 
@@ -79,7 +51,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,mod
 svn co https://github.com/kiddin9/openwrt-packages/trunk/xmm-modem package/xmm-modem
 sed -i 's/ACM0/ACM2/g' package/xmm-modem/root/etc/config/xmm-modem
 
-# Add ethstatus
+# Add ethstatus && autocore
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{autocore,ethstatus,mhz} package/
 
 # Add ramfree
@@ -87,12 +59,6 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree packag
 
 # Add luci-app-adguardhome
 git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome.git package/luci-app-adguardhome
-
-# Add wrtwmon
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-wrtbwmon,wrtbwmon} package/
-
-# Add useronline
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-onliner package/luci-app-onliner
 
 # Add ssr-plus && passwall
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
@@ -106,9 +72,6 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,mod
 
 # Add theme
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-argon-config,luci-theme-argon,luci-theme-edge} package/
-
-# Add eqosip to limit
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
 
 # Add default setting
 mkdir -p files/etc/uci-defaults
