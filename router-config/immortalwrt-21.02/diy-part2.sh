@@ -25,6 +25,28 @@ echo "DISTRIB_SOURCECODE='immortalwrt'" >>package/base-files/files/etc/openwrt_r
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
+# Add atinout
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-atinout,atinout} package/
+
+# Add modeminfo
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,modeminfo,telegrambot} package/
+
+# Add driver l860-gl
+svn co https://github.com/kiddin9/openwrt-packages/trunk/xmm-modem package/xmm-modem
+sed -i 's/ACM0/ACM2/g' package/xmm-modem/root/etc/config/xmm-modem
+
+# Add ethstatus
+svn co https://github.com/kiddin9/openwrt-packages/trunk/ethstatus package/ethstatus
+
+# Add luci-app-adguardhome
+git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome.git package/luci-app-adguardhome
+
+# Add default setting
+mkdir -p files/etc/uci-defaults
+pushd files/etc/uci-defaults
+wget https://raw.githubusercontent.com/davintagas/default/main/99-init-settings.sh
+popd
+
 # Apply patch
 # git apply ../router-config/patches/{0001*,0002*}.patch --directory=feeds/luci
 #
