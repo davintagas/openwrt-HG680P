@@ -41,6 +41,9 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/ethstatus package/ethst
 # Add luci-app-adguardhome
 git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome.git package/luci-app-adguardhome
 
+# Add tinyfilemanager
+git clone --depth 1 https://github.com/davintagas/luci-app-tinyfilemanager.git package/luci-app-tinyfilemanager
+
 # Add default setting
 mkdir -p files/etc/uci-defaults
 pushd files/etc/uci-defaults
