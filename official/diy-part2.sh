@@ -63,6 +63,7 @@ git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome.git packag
 # Add ssr-plus && passwall
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
+svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 # Add passwal-package
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{lua-neturl,sagernet-core,ipt2socks,redsocks2,trojan,brook,dns2socks,dns2tcp,microsocks,tcping,chinadns-ng,hysteria,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,trojan-go,trojan-plus,v2ray-core,v2ray-plugin,xray-plugin,v2ray-geodata} package/passwall-package
