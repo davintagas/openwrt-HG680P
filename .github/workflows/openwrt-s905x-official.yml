@@ -65,7 +65,7 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: v22.03.3
+  REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: official/feeds.conf.default
   CONFIG_FILE: official/config
   DIY_P1_SH: official/diy-part1.sh
