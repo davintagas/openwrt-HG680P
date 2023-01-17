@@ -28,6 +28,7 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # ------------------------------- Other started -------------------------------
 #
 #
+rm -rf feeds/packages/net/{trojan-go,v2ray-core,v2ray-geodata}
 # Change luci-base && luci-mod-status
 rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status} feeds/luci/modules/
