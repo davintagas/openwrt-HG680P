@@ -24,6 +24,12 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 #
 # ------------------------------- Main source ends -------------------------------
 
+# Add patch
+svn co https://github.com/kiddin9/openwrt-packages/trunk/firewall/patches package/network/config/firewall/patches
+
+# Add turboacc
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,shortcut-fe,pdnsd-alt,dnsforwarder,dnsproxy,luci-app-fullconenat,fullconenat} package/
+
 # svn co https://github.com/openwrt/packages/branches/openwrt-22.03/utils/parted package/parted
 svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/utils/dtc package/dtc
 
