@@ -58,6 +58,9 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree packag
 # Add luci-app-adguardhome
 git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome.git package/luci-app-adguardhome
 
+# Add eqos
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
+
 # Add ssr-plus && passwall
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
