@@ -6334,9 +6334,9 @@ CONFIG_PACKAGE_luci-proto-mbim=y
 #
 # Splash Screens
 #
-CONFIG_PACKAGE_ext-splash=y
-CONFIG_PACKAGE_ext-splashconfig=y
-CONFIG_PACKAGE_splash=y
+# CONFIG_PACKAGE_ext-splash is not set
+# CONFIG_PACKAGE_ext-splashconfig is not set
+# CONFIG_PACKAGE_splash is not set
 CONFIG_PACKAGE_status=y
 # end of Splash Screens
 
