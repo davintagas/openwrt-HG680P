@@ -5633,7 +5633,7 @@ CONFIG_PACKAGE_tc-tiny=y
 # CONFIG_PACKAGE_openssh-server-pam is not set
 # CONFIG_PACKAGE_openssh-sftp-avahi-service is not set
 # CONFIG_PACKAGE_openssh-sftp-client is not set
-# CONFIG_PACKAGE_openssh-sftp-server is not set
+CONFIG_PACKAGE_openssh-sftp-server=y
 # CONFIG_PACKAGE_sshtunnel is not set
 # CONFIG_PACKAGE_tmate is not set
 # end of SSH
@@ -6335,7 +6335,7 @@ CONFIG_PACKAGE_luci-proto-mbim=y
 # Splash Screens
 #
 CONFIG_PACKAGE_ext-splash=y
-# CONFIG_PACKAGE_ext-splashconfig is not set
+CONFIG_PACKAGE_ext-splashconfig=y
 # CONFIG_PACKAGE_splash is not set
 # CONFIG_PACKAGE_status is not set
 # end of Splash Screens
