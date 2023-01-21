@@ -35,7 +35,8 @@ svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/utils/d
 
 # Change luci base && status
 rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status} feeds/luci/modules/
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-base feeds/luci/modules/luci-base
+svn co https://github.com/immortalwrt/luci/branches/openwrt-21.02/modules/luci-mod-status feeds/luci/modules/luci-mod-status
 
 # Add diskman
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-diskman package/luci-app-diskman
