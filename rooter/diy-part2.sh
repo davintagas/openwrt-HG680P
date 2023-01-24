@@ -82,7 +82,7 @@ rm -rf feeds/packages/lang/python/python-cryptography
 svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/python/python-cryptography feeds/packages/lang/python/python-cryptography
 
 # Add default setting
-mkdir -p files/etc/uci-defaults
-pushd files/etc/uci-defaults
-wget https://raw.githubusercontent.com/davintagas/default/main/99-init-settings.sh
-popd
+# mkdir -p files/etc/uci-defaults
+# pushd files/etc/uci-defaults
+# wget https://raw.githubusercontent.com/davintagas/default/main/99-init-settings.sh
+# popd
