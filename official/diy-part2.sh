@@ -28,55 +28,35 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # ------------------------------- Other started -------------------------------
 #
 #
-rm -rf feeds/packages/net/{trojan-go,v2ray-core,v2ray-geodata}
-# Change luci-base && luci-mod-status
-rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status} feeds/luci/modules/
+git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin
 
-# Add luci-app-amlogic
+rm -rf package/kiddin/{luci-app-baidupcs-web,my-default-settings,luci-app-amlogic,baidupcs-web,basicstation,luci-app-apinger,luci-app-bitsrunlogin-go,luci-app-keepalived,luci-app-e2guardian,luci-app-e2guardian,luci-app-lorawan-basicstation}
+
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
-# Add tinyfilemanager
-git clone --depth 1 https://github.com/davintagas/luci-app-tinyfilemanager.git package/luci-app-tinyfilemanager
-
-# Add filebrowser
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-filebrowser,filebrowser} package/
-
-# Add atinout
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-atinout,atinout} package/
-
-# Add modeminfo
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,modeminfo,telegrambot} package/
-
-# Add driver l860-gl
-svn co https://github.com/kiddin9/openwrt-packages/trunk/xmm-modem package/xmm-modem
-sed -i 's/ACM0/ACM2/g' package/xmm-modem/root/etc/config/xmm-modem
-
-# Add ethstatus && autocore
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{autocore,ethstatus,mhz} package/
-
-# Add ramfree
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
-
-# Add luci-app-adguardhome
-git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome.git package/luci-app-adguardhome
-
-# Add ssr-plus && passwall
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
-svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-
-# Add passwal-package
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{lua-neturl,sagernet-core,ipt2socks,redsocks2,trojan,brook,dns2socks,dns2tcp,microsocks,tcping,chinadns-ng,hysteria,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,trojan-go,trojan-plus,v2ray-core,v2ray-plugin,xray-plugin,v2ray-geodata} package/passwall-package
-
-# Add modemband
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,modemband,sms-tool} package/
-
-# Add theme
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-argon-config,luci-theme-argon,luci-theme-edge} package/
+rm -rf feeds/packages/net/{xray-core,v2raya,v2ray-geodata,v2ray-core,uwsgi,trojan-go,transmission-web-control,transmission,telnet-bsd,tailscale,speedtestpp,smartdns,rp-pppoe,nginx,adguardhome,aria2,ariang,cloudreve,ddns-scripts,dnsproxy,frp,haproxy,keepalived,mwan3}
+rm -rf feeds/packages/utils/{cgroupfs-mount,coremark,dockerd,watchcat}
+rm -rf feeds/luci/applications/{luci-app-acme,luci-app-aria2,luci-app-attendedsysupgrade,luci-app-dawn,luci-app-ddns,luci-app-dockerman,luci-app-dump1090,luci-app-eoip,luci-app-firewall,luci-app-frpc,luci-app-frps,luci-app-ksmbd,luci-app-ltqtapi,luci-app-lxc,luci-app-mwan3,luci-app-natmap,luci-app-ocserv,luci-app-olsr-services,luci-app-olsr-viz,luci-app-omcproxy,luci-app-openwisp,luci-app-opkg,luci-app-pagekitec,luci-app-rp-pppoe-server,luci-app-samba4,luci-app-shadowsocks-libev,luci-app-smartdns,luci-app-snmpd,luci-app-squid,luci-app-transmission,luci-app-udpxy,luci-app-unbound,luci-app-upnp,luci-app-watchcat,luci-app-xinetd}
+rm -rf feeds/luci/modules/{luci-base,luci-mod-network,luci-mod-status,luci-mod-system}
+rm -rf feeds/packages/mail/msmtp
+rm -rf feeds/packages/admin/netdata
+rm -rf package/network/config/{firewall,firewall4,netifd}
+rm -rf package/network/services/{dnsmasq,ppp}
+rm -rf package/network/utils/nftables
+rm -rf package/base-files
+rm -rf package/system/opkg
+rm -rf package/libs/{libnftnl,mbedtls,openssl}
+rm -rf package/network/config/ltq-vdsl-app
 
 # Add default setting
 mkdir -p files/etc/uci-defaults
 pushd files/etc/uci-defaults
 wget https://raw.githubusercontent.com/davintagas/default/main/99-init-settings.sh
 popd
+
+rm -rf .git
+git clone --depth 1 https://github.com/openwrt/openwrt.git
+cd openwrt
+cp -r .git ../
+cd -
+rm -rf openwrt
