@@ -21,7 +21,7 @@ on:
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.15.85_6.1.1"
+        default: "6.1.1"
         type: choice
         options:
           - 5.4.225_5.10.160_5.15.85
