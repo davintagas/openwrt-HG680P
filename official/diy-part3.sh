@@ -25,9 +25,3 @@ find target/linux/generic/backport-5.15 -name "[0-9][0-9][0-9]-[a-z][a-z]*" -exe
 rm -rf target/linux/generic/backport-5.15/{802-v6.1-nvmem*,803-v5.19-nvmem*}
 
 sed -i "s/tty\(0\|1\)::askfirst/tty\1::respawn/g" target/linux/*/base-files/etc/inittab
-
-echo "
-CONFIG_TESTING_KERNEL=y
-CONFIG_PACKAGE_kmod-ipt-coova=n
-CONFIG_PACKAGE_kmod-pf-ring=n
-" >> official/config
