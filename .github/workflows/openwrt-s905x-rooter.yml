@@ -61,7 +61,7 @@ on:
       openwrt_size:
         description: "Set the rootfs size(Unit: MiB)"
         required: false
-        default: "1400"
+        default: "1024"
 
 env:
   REPO_URL: https://github.com/ofmodemsandmen/ROOterSource2102.git
@@ -86,9 +86,6 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          docker rmi `docker images -q`
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* mongodb* dotnet* moby* snapd* || true
           sudo -E apt-get -qq update -y
           sudo -E apt-get -qq full-upgrade -y
           sudo -E apt-get -qq install -y $(curl -fsSL https://is.gd/depend_ubuntu2204_openwrt)
