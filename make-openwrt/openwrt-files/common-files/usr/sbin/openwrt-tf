@@ -16,8 +16,13 @@
 #
 #========================= Set default parameters ===========================
 #
+# Automatically expand file
+todo_rootfs_resize="/root/.todo_rootfs_resize"
+#
+# Set font color
 STEPS="[\033[95m STEPS \033[0m]"
 INFO="[\033[94m INFO \033[0m]"
+TIPS="[\033[93m TIPS \033[0m]"
 SUCCESS="[\033[92m SUCCESS \033[0m]"
 OPTIONS="[\033[93m OPTIONS \033[0m]"
 ERROR="[\033[91m ERROR \033[0m]"
@@ -36,25 +41,20 @@ do_checkdisk() {
     ROOT_PTNAME="$(df / | tail -n1 | awk '{print $1}' | awk -F '/' '{print $3}')"
     [[ -z "${ROOT_PTNAME}" ]] && error_msg "Cannot find the partition corresponding to the root file system!"
 
-    # Check the current system running disk
-    if lsblk -l | grep -E "^${ROOT_PTNAME:0:-2}boot0" >/dev/null; then
-        error_msg "You are running in eMMC mode, please boot system with usb or tf card!"
-    fi
-
     # Find the disk where the partition is located, only supports mmcblk?p? sd?? hd?? vd?? and other formats
     case "${ROOT_PTNAME}" in
     mmcblk?p[1-4])
-        DISK_NAME="$(echo ${ROOT_PTNAME} | awk '{print substr($1, 1, length($1)-2)}')"
+        DISK_NAME="${ROOT_PTNAME:0:-2}"
         PT_PRE="${DISK_NAME}p"
         LB_PRE="MMC_"
         ;;
     [hsv]d[a-z][1-4])
-        DISK_NAME="$(echo ${ROOT_PTNAME} | awk '{print substr($1, 1, length($1)-1)}')"
+        DISK_NAME="${ROOT_PTNAME:0:-1}"
         PT_PRE="${DISK_NAME}"
         LB_PRE="USB_"
         ;;
     nvme?n?p[1-4])
-        DISK_NAME="$(echo ${ROOT_PTNAME} | awk '{print substr($1, 1, length($1)-2)}')"
+        DISK_NAME="${ROOT_PTNAME:0:-2}"
         PT_PRE="${DISK_NAME}p"
         LB_PRE="NVME_"
         ;;
@@ -62,9 +62,18 @@ do_checkdisk() {
         error_msg "Unable to recognize the disk type of ${ROOT_PTNAME}!"
         ;;
     esac
+    echo -e "${INFO} OpenWrt running: [ ${LB_PRE:0:-1} - /dev/${DISK_NAME} ]."
+
+    # Check whether partition is required
+    [[ -n "$(lsblk -l -o NAME | grep -oE "^${PT_PRE}4")" ]] && {
+        # Delete auto-extending file
+        rm -f ${todo_rootfs_resize} 2>/dev/null
+        echo -e "${TIPS} Partitioned, no operation required."
+        exit 0
+    }
 }
 
-# Get the starting position of the p3 partition
+# Create the 3rd and 4th partition
 create_new_part() {
     # Generate New UUID
     echo -e "${STEPS} Start generating new partition UUID..."
@@ -142,23 +151,21 @@ EOF
     /etc/init.d/dockerd start 2>/dev/null
     /etc/init.d/dockerd enable 2>/dev/null
 
+    # Delete auto-extending file
+    rm -f ${todo_rootfs_resize} 2>/dev/null
+
     echo -e "${INFO} Current partition status: \n$(lsblk)"
     echo -e "${SUCCESS} Create partition successfully."
     sync
     exit 0
 }
 
+# Show welcome message
 echo -e "${STEPS} Welcome to use TF/SD/USB partition management tool."
 # Check script permission
 [[ -x "/usr/sbin/openwrt-tf" ]] || error_msg "Please grant execution permission: [ chmod +x /usr/sbin/openwrt-tf ]"
 #
-echo -ne "${STEPS} This operation will clear the data in the remaining space, are you sure to continue? y/n [y]\b\b"
-read yn
-case "${yn}" in
-    n* | N*) error_msg " You aborted the operation!" ;;
-esac
-#
 # Check disk
 do_checkdisk
-# Get the starting position of the p3 partition
+# Create the 3rd and 4th partition
 create_new_part
