@@ -4,7 +4,7 @@
 # Source code repository: https://github.com/openwrt/openwrt / Branch: master
 #=====================================================================================
 
-name: Build OpenWrt s905x
+name: Build ROOter s905x
 
 on:
   repository_dispatch:
