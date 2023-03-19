@@ -7197,5 +7197,3 @@ CONFIG_PACKAGE_which=y
 # CONFIG_PACKAGE_fontconfig is not set
 # end of Font-Utils
 # end of Xorg
-
-CONFIG_OVERRIDE_PKGS="luci-theme-material mesh11sd speedtestpp"
