@@ -18,13 +18,17 @@ on:
         default: "openwrt:22.03.3"
         type: choice
         options:
+          - openwrt:22.03.5
+          - openwrt:22.03.4
           - openwrt:22.03.3
+          - openwrt:21.02.7
+          - openwrt:21.02.6
           - openwrt:21.02.5
           - openwrt:19.07.10
           - openwrt:18.06.9
+          - immortalwrt:21.02.6
           - immortalwrt:21.02.5
           - immortalwrt:21.02.4
-          - immortalwrt:21.02.3
       openwrt_board:
         description: "Select device board"
         required: false
@@ -33,6 +37,7 @@ on:
         options:
           - all
           - s922x_s905x3_s905d_s912_s905l3a
+          - s905x-t95_s912-t95z-plus_s905l3-unt400g1
           - s905d
           - s905d-ki-pro
           - s905x
@@ -101,6 +106,7 @@ on:
           - s905x3-q1000
           - s905x3-a100
           - s905x3-2101
+          - s905x3-whale
           - s905x3-b
           - s905
           - s905-mxqpro-plus
@@ -230,13 +236,17 @@ jobs:
           tag: OpenWrt_imagebuilder_${{ env.RELEASES_TAG }}_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GH_TOKEN }}
           body: |
-            This is OpenWrt firmware for Amlogic and Rockchip
-            * Firmware information
-            Default IP: 192.168.1.1
-            Default username: root
-            Default password: password
-            Default WIFI name: OpenWrt
-            Default WIFI password: none
-            Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image information
+            - Default IP: 192.168.1.1
+            - Default username: root
+            - Default password: password
+            - Default WIFI name: OpenWrt
+            - Default WIFI password: none
+            ### Install to EMMC
+            - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image Verification
+            - sha256sum

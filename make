@@ -79,7 +79,7 @@ firmware_repo="https://github.com/ophub/firmware/tree/main/firmware"
 firmware_repo="${firmware_repo//tree\/main/trunk}"
 
 # Install/Update script files download repository
-script_repo="https://github.com/ophub/luci-app-amlogic/tree/main/luci-app-amlogic/root/usr/sbin"
+script_repo="https://github.com/ophub/luci-app-amlogic/tree/main/luci-app-amlogic"
 # Convert script repository address to svn format
 script_repo="${script_repo//tree\/main/trunk}"
 
@@ -303,9 +303,9 @@ find_openwrt() {
     echo -e "${STEPS} Start searching for OpenWrt file..."
 
     # Find whether the OpenWrt file exists
-    openwrt_file_name="$(ls ${openwrt_path}/${openwrt_rootfs_file} 2>/dev/null | head -n 1 | awk -F "/" '{print $NF}')"
-    if [[ -n "${openwrt_file_name}" ]]; then
-        echo -e "${INFO} OpenWrt file: [ ${openwrt_file_name} ]"
+    openwrt_default_file="$(ls ${openwrt_path}/${openwrt_rootfs_file} 2>/dev/null | head -n 1 | awk -F "/" '{print $NF}')"
+    if [[ -n "${openwrt_default_file}" ]]; then
+        echo -e "${INFO} OpenWrt file: [ ${openwrt_default_file} ]"
     else
         error_msg "There is no [ ${openwrt_rootfs_file} ] file in the [ ${openwrt_path} ] directory."
     fi
@@ -314,7 +314,7 @@ find_openwrt() {
     source_codename=""
     source_release_file="etc/openwrt_release"
     temp_dir="$(mktemp -d)"
-    (cd ${temp_dir} && tar -xzf "${openwrt_path}/${openwrt_file_name}" "./${source_release_file}" 2>/dev/null)
+    (cd ${temp_dir} && tar -xzf "${openwrt_path}/${openwrt_default_file}" "./${source_release_file}" 2>/dev/null)
     # Find custom DISTRIB_SOURCECODE, such as [ official/lede ]
     [[ -f "${temp_dir}/${source_release_file}" ]] && {
         source_codename="$(cat ${temp_dir}/${source_release_file} 2>/dev/null | grep -oE "^DISTRIB_SOURCECODE=.*" | head -n 1 | cut -d"'" -f2)"
@@ -352,8 +352,10 @@ download_depends() {
     svn export ${depends_repo}/armbian-files/common-files/etc/balance_irq ${common_files}/etc --force
 
     # Download install/update and other related files
-    svn export ${script_repo} ${common_files}/usr/sbin --force
+    svn export ${script_repo}/root/usr/sbin ${common_files}/usr/sbin --force
     chmod +x ${common_files}/usr/sbin/*
+    svn export ${script_repo}/root/usr/share/amlogic ${common_files}/usr/share/amlogic --force
+    chmod +x ${common_files}/usr/share/amlogic/*
 }
 
 query_kernel() {
@@ -597,7 +599,8 @@ make_image() {
 
     # Set OpenWrt filename
     [[ -d "${out_path}" ]] || mkdir -p ${out_path}
-    build_image_file="${out_path}/openwrt${source_codename}_${PLATFORM}_${board}_k${kernel}_$(date +"%Y.%m.%d").img"
+    openwrt_filename="openwrt${source_codename}_${PLATFORM}_${board}_k${kernel}_$(date +"%Y.%m.%d").img"
+    build_image_file="${out_path}/${openwrt_filename}"
     rm -f ${build_image_file}
 
     IMG_SIZE="$((skip_mb + boot_mb + root_mb))"
@@ -703,7 +706,7 @@ extract_openwrt() {
     btrfs subvolume create ${tag_rootfs}/etc >/dev/null 2>&1
 
     # Unzip the OpenWrt rootfs file
-    tar -xzf ${openwrt_path}/${openwrt_file_name} -C ${tag_rootfs}
+    tar -xzf ${openwrt_path}/${openwrt_default_file} -C ${tag_rootfs}
     rm -rf ${tag_rootfs}/lib/modules/*
     rm -f ${tag_rootfs}/rom/sbin/firstboot
 
@@ -1039,13 +1042,10 @@ clean_tmp() {
     losetup -D
 
     cd ${out_path}
-
     # Compress the OpenWrt image file
-    pigz -qf *.img || gzip -qf *.img
-    sync
+    pigz -qf ${openwrt_filename} || gzip -qf ${openwrt_filename}
 
     cd ${current_path}
-
     # Clear temporary files directory
     rm -rf ${tmp_path} && sync
 }
@@ -1124,14 +1124,6 @@ loop_make() {
             let j++
         }
     done
-
-    cd ${out_path}
-
-    # Backup the OpenWrt file
-    cp -f ${openwrt_path}/${openwrt_file_name} .
-
-    # Generate sha256sum check file
-    sha256sum * >sha256sums && sync
 }
 
 # Show welcome message

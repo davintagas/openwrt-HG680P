@@ -26,6 +26,7 @@ on:
         options:
           - all
           - s922x_s905x3_s905d_s912_s905l3a
+          - s905x-t95_s912-t95z-plus_s905l3-unt400g1
           - s905d
           - s905d-ki-pro
           - s905x
@@ -94,6 +95,7 @@ on:
           - s905x3-q1000
           - s905x3-a100
           - s905x3-2101
+          - s905x3-whale
           - s905x3-b
           - s905
           - s905-mxqpro-plus
@@ -155,6 +157,14 @@ on:
           - stable
           - flippy
           - dev
+      openwrt_storage:
+        description: "Select OpenWrt image storage time."
+        required: false
+        default: "lts"
+        type: choice
+        options:
+          - lts
+          - tmp
 
 env:
   TZ: America/New_York
@@ -193,18 +203,26 @@ jobs:
           armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
           [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
 
-          openwrt_url="$(curl \
-                            --header "authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-                            -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" |
-                            grep -oE "OpenWrt_.*${{ inputs.source_branch }}.*/.*rootfs.tar.gz" |
-                            head -n 1
-                        )"
-          [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
-          down_file="https://github.com/${GITHUB_REPOSITORY}/releases/download/${openwrt_url}"
+          latest_version="$(curl -s \
+                              -H "Accept: application/vnd.github+json" \
+                              -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+                              https://api.github.com/repos/${GITHUB_REPOSITORY}/releases |
+                              jq '.[]' |
+                              jq -s --arg RTK "OpenWrt_${{ inputs.source_branch }}_" '.[] | select(.tag_name | contains($RTK))' |
+                              jq -s '.[].assets[] | {data:.updated_at, url:.browser_download_url}' |
+                              jq -s --arg BOARD "-rootfs.tar.gz" '.[] | select(.url | endswith($BOARD))' |
+                              jq -s 'sort_by(.data)|reverse[]' |
+                              jq -s '.[0]' -c
+                          )"
 
-          wget -q -P "${armvirt_tarfile_path}" "${down_file}"
-          [[ "${?}" -ne "0" ]] && echo "The armvirt file download failed!" && exit 1
+          [[ "${latest_version}" == "null" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
+          latest_updated_at="$(echo ${latest_version} | jq -r '.data')"
+          latest_url="$(echo ${latest_version} | jq -r '.url')"
 
+          wget -q -P "${armvirt_tarfile_path}" "${latest_url}"
+          [[ "${?}" -ne "0" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
+
+          echo "build_tag=OpenWrt_${{ inputs.source_branch }}_${{ inputs.openwrt_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Build OpenWrt firmware
@@ -223,16 +241,20 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: OpenWrt_${{ inputs.source_branch }}_${{ env.PACKAGED_OUTPUTDATE }}
+          tag: ${{ steps.down.outputs.build_tag }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GH_TOKEN }}
           body: |
-            This is OpenWrt firmware for Amlogic and Rockchip
-            * Firmware information
-            Default IP: 192.168.1.1
-            Default username: root
-            Default password: password
-            Default WIFI name: OpenWrt
-            Default WIFI password: none
-            Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image information
+            - Default IP: 192.168.1.1
+            - Default username: root
+            - Default password: password
+            - Default WIFI name: OpenWrt
+            - Default WIFI password: none
+            ### Install to EMMC
+            - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image Verification
+            - sha256sum

@@ -18,6 +18,7 @@ on:
         options:
           - all
           - s922x_s905x3_s905d_s912_s905l3a
+          - s905x-t95_s912-t95z-plus_s905l3-unt400g1
           - s905d
           - s905d-ki-pro
           - s905x
@@ -86,6 +87,7 @@ on:
           - s905x3-q1000
           - s905x3-a100
           - s905x3-2101
+          - s905x3-whale
           - s905x3-b
           - s905
           - s905-mxqpro-plus
@@ -147,6 +149,14 @@ on:
           - stable
           - flippy
           - dev
+      openwrt_storage:
+        description: "Select OpenWrt image storage time."
+        required: false
+        default: "lts"
+        type: choice
+        options:
+          - lts
+          - tmp
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
@@ -230,7 +240,7 @@ jobs:
           cd openwrt/
           echo -e "$(nproc) thread compile"
           make -j$(($(nproc) + 1)) V=s || make -j1 || make -j1 V=s
-          echo "build_tag=OpenWrt_immortalwrt_$(date +"%m.%d.%H%M")" >> ${GITHUB_OUTPUT}
+          echo "build_tag=OpenWrt_immortalwrt_${{ inputs.openwrt_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Upload OpenWrt Firmware to Release
@@ -268,13 +278,17 @@ jobs:
           tag: ${{ steps.compile.outputs.build_tag }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GH_TOKEN }}
           body: |
-            This is OpenWrt firmware for Amlogic and Rockchip
-            * Firmware information
-            Default IP: 192.168.1.1
-            Default username: root
-            Default password: password
-            Default WIFI name: OpenWrt
-            Default WIFI password: none
-            Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image information
+            - Default IP: 192.168.1.1
+            - Default username: root
+            - Default password: password
+            - Default WIFI name: OpenWrt
+            - Default WIFI password: none
+            ### Install to EMMC
+            - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image Verification
+            - sha256sum

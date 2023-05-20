@@ -10,14 +10,6 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      source_branch:
-        description: "Select the source branch"
-        required: false
-        default: "lede"
-        type: choice
-        options:
-          - lede
-          - official
       openwrt_soc:
         description: "Select device board"
         required: false
@@ -37,6 +29,7 @@ on:
           - r68s
           - e25
           - photonicat
+          - cm3
           - beikeyun
           - l1pro
           - vplus
@@ -74,6 +67,14 @@ on:
         required: false
         default: true
         type: boolean
+      openwrt_storage:
+        description: "Select OpenWrt image storage time."
+        required: false
+        default: "lts"
+        type: choice
+        options:
+          - lts
+          - tmp
 
 env:
   TZ: America/New_York
@@ -109,22 +110,35 @@ jobs:
         id: down
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
-          openwrt_url="$(curl \
-                            --header "authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-                            -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" |
-                            grep -o "OpenWrt_.*${{ inputs.source_branch }}.*/.*rootfs.tar.gz" |
-                            head -n 1
-                        )"
-          [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
-          #
+          armvirt_tarfile_repo="ophub/amlogic-s9xxx-openwrt"
+          releases_tag_keywords="OpenWrt_lede_"
+
           armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
           [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
-          #
-          wget -q -P "${armvirt_tarfile_path}" "https://github.com/${GITHUB_REPOSITORY}/releases/download/${openwrt_url}"
-          [[ "${?}" -ne "0" ]] && echo -e "The armvirt file download failed!" && exit 1
+
+          latest_version="$(curl -s \
+                              -H "Accept: application/vnd.github+json" \
+                              -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+                              https://api.github.com/repos/${armvirt_tarfile_repo}/releases |
+                              jq '.[]' |
+                              jq -s --arg RTK "${releases_tag_keywords}" '.[] | select(.tag_name | contains($RTK))' |
+                              jq -s '.[].assets[] | {data:.updated_at, url:.browser_download_url}' |
+                              jq -s --arg BOARD "-rootfs.tar.gz" '.[] | select(.url | endswith($BOARD))' |
+                              jq -s 'sort_by(.data)|reverse[]' |
+                              jq -s '.[0]' -c
+                          )"
+
+          [[ "${latest_version}" == "null" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
+          latest_updated_at="$(echo ${latest_version} | jq -r '.data')"
+          latest_url="$(echo ${latest_version} | jq -r '.url')"
+
+          wget -q -P "${armvirt_tarfile_path}" "${latest_url}"
+          [[ "${?}" -ne "0" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
+
+          echo "build_tag=OpenWrt_aarch64_${{ inputs.openwrt_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
-      - name: Packaging OpenWrt [ ${{ inputs.source_branch }} ]
+      - name: Packaging OpenWrt
         uses: ophub/flippy-openwrt-actions@main
         if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
         env:
@@ -139,13 +153,20 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: OpenWrt_aarch64_${{ env.PACKAGED_OUTPUTDATE }}
+          tag: ${{ steps.down.outputs.build_tag }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GH_TOKEN }}
           body: |
-            This is OpenWrt firmware for Amlogic and Rockchip
-            * Firmware information
-            Default IP: 192.168.1.1
-            Default username: root
-            Default password: password
+            ### OpenWrt Image information
+            - Default IP: 192.168.1.1
+            - Default username: root
+            - Default password: password
+            - Default WIFI name: OpenWrt
+            - Default WIFI password: none
+            ### Install to EMMC
+            - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+            ### OpenWrt Image Verification
+            - sha256sum
