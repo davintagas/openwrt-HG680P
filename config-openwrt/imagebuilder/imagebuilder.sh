@@ -137,6 +137,8 @@ custom_packages() {
     echo -e "${INFO} The [ ${amlogic_i18n} ] is downloaded successfully."
 
     # Download other luci-app-xxx
+    wget https://op.supes.top/23.05/packages/aarch64_cortex-a53/xmm-modem_0.1.1-20_all.ipk -P packages/
+    wget https://op.supes.top/23.05/packages/aarch64_cortex-a53/luci-proto-xmm_git-24.145.71338-56bb699_all.ipk -P packages/
     # ......
 
     sync && sleep 3
@@ -168,9 +170,7 @@ custom_files() {
         # Copy custom files
         [[ -d "files" ]] || mkdir -p files
         cp -rf ${custom_files_path}/* files
-        svn co https://github.com/kiddin9/openwrt-packages/trunk/xmm-modem/root/{etc,lib} files/
-        svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-proto-xmm/htdocs files/www
-
+    
         sync && sleep 3
         echo -e "${INFO} [ files ] directory status: $(ls files -l 2>/dev/null)"
     else
@@ -197,7 +197,7 @@ rebuild_firmware() {
         perlbase-time perlbase-unicode perlbase-utf8 pigz ppp ppp-mod-pppoe \
         proto-bonding pv rename resize2fs runc subversion-client subversion-libs tar \
         tini ttyd tune2fs uclient-fetch uhttpd uhttpd-mod-ubus unzip uqmi usb-modeswitch \
-        uuidgen wget-ssl whereis which wpad-basic wwan xfs-fsck xfs-mkfs xz \
+        uuidgen wget-ssl whereis which wpad-basic wwan xfs-fsck xfs-mkfs xz xmm-modem luci-proto-xmm \
         xz-utils ziptool zoneinfo-asia zoneinfo-core zstd comgt kmod-usb-acm kmod-usb-net-cdc-ncm openssh-sftp-server \
         \
         luci luci-base luci-compat luci-i18n-base-en luci-i18n-base-zh-cn luci-lib-base  \
