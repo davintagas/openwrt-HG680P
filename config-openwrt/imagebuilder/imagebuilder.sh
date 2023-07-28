@@ -145,6 +145,7 @@ custom_packages() {
     wget https://op.supes.top/23.05/packages/aarch64_cortex-a53/luci-app-atinout_git-24.145.71338-56bb699_all.ipk -P packages/
     wget https://op.supes.top/23.05/packages/aarch64_cortex-a53/atinout_0.9.1_aarch64_cortex-a53.ipk -P packages/
     wget https://op.supes.top/23.05/packages/aarch64_cortex-a53/luci-app-ramfree_git-24.145.71338-56bb699_all.ipk -P packages/
+    wget https://op.supes.top/23.05/packages/aarch64_cortex-a53/luci/luci-lua-runtime_git-23.119.80867-2a9c3a3_aarch64_cortex-a53.ipk -P packages/
     # ......
 
     sync && sleep 3
@@ -200,7 +201,7 @@ rebuild_firmware() {
         kmod-brcmfmac kmod-brcmutil kmod-cfg80211 kmod-mac80211 libjson-script \
         liblucihttp liblucihttp-lua libnetwork losetup lsattr lsblk lscpu mkf2fs \
         mount-utils openssl-util parted perl-http-date perlbase-file perlbase-getopt \
-        perlbase-time perlbase-unicode perlbase-utf8 pigz ppp ppp-mod-pppoe luci-app-modeminfo modeminfo modeminfo-serial-xmm luci-app-atinout atinout luci-app-ramfree \
+        perlbase-time perlbase-unicode perlbase-utf8 pigz ppp ppp-mod-pppoe luci-app-modeminfo modeminfo modeminfo-serial-xmm luci-app-atinout atinout luci-app-ramfree luci-lua-runtime \
         proto-bonding pv rename resize2fs runc subversion-client subversion-libs tar \
         tini ttyd tune2fs uclient-fetch uhttpd uhttpd-mod-ubus unzip uqmi usb-modeswitch \
         uuidgen wget-ssl whereis which wpad-basic wwan xfs-fsck xfs-mkfs xz xmm-modem luci-proto-xmm \
