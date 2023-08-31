@@ -12,13 +12,13 @@ on:
       source_branch:
         description: "Select the source branch"
         required: false
-        default: "v22"
+        default: "v22-v23.05.0-rc3"
         type: choice
         options:
           - openwrt-main
           - lede-master
           - immortalwrt-master
-          - v22
+          - v22-v23.05.0-rc3
       openwrt_board:
         description: "Select device board"
         required: false
@@ -137,7 +137,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "5.15.1_6.1.1"
+        default: "6.1.1"
         type: choice
         options:
           - 5.4.1_5.10.1
