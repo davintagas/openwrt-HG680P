@@ -3,7 +3,7 @@
 # Description: Build OpenWrt
 #============================================================================================
 
-name: Build OpenWrt
+name: Build OpenWrt v22
 
 on:
   repository_dispatch:
@@ -12,13 +12,13 @@ on:
       source_branch:
         description: "Select the source branch"
         required: false
-        default: "v22-v23.05.0-rc3"
+        default: "v23.05.0-rc3"
         type: choice
         options:
           - openwrt-main
           - lede-master
           - immortalwrt-master
-          - v22-v23.05.0-rc3
+          - v23.05.0-rc3
       openwrt_board:
         description: "Select device board"
         required: false
