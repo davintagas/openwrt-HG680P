@@ -73,6 +73,11 @@ depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/build-arm
 # Convert depends repository address to svn format
 depends_repo="${depends_repo//tree\/main/trunk}"
 
+# U-BOOT files download repository
+uboot_repo="https://github.com/ophub/u-boot/tree/main/u-boot"
+# Convert firmware repository address to svn format
+uboot_repo="${uboot_repo//tree\/main/trunk}"
+
 # Firmware files download repository
 firmware_repo="https://github.com/ophub/firmware/tree/main/firmware"
 # Convert firmware repository address to svn format
@@ -91,6 +96,7 @@ default_tags="stable"
 specific_tags="${default_tags}"
 # Set the list of kernels used by default
 rk3588_kernel=("5.10.1")
+h6_kernel=("6.4.1")
 stable_kernel=("6.1.1" "5.15.1")
 flippy_kernel=(${stable_kernel[*]})
 dev_kernel=(${stable_kernel[*]})
@@ -353,31 +359,34 @@ download_depends() {
     echo -e "${STEPS} Start downloading dependency files..."
 
     # Download platform files
-    svn co ${depends_repo}/armbian-files/platform-files ${platform_files} --force
+    svn co ${depends_repo}/armbian-files/platform-files ${platform_files} --force --quiet
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} platform-files download completed." || error_msg "platform-files download failed."
     # Remove the special files in the [ sbin ] directory of the Armbian system
     rm -rf $(find ${platform_files} -type d -name "sbin")
 
     # Download different files
-    svn co ${depends_repo}/armbian-files/different-files ${different_files} --force
+    svn co ${depends_repo}/armbian-files/different-files ${different_files} --force --quiet
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} different-files download completed." || error_msg "different-files download failed."
 
-    # Download u-boot files
-    if [[ -d "${uboot_path}" ]]; then
-        svn up ${uboot_path} --force
-    else
-        svn co ${depends_repo}/u-boot ${uboot_path} --force
-    fi
+    # Download Armbian u-boot files
+    svn co ${uboot_repo} ${uboot_path} --force --quiet
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} u-boot download completed." || error_msg "u-boot download failed."
 
     # Download Armbian firmware files
-    svn co ${firmware_repo} ${firmware_path} --force
+    svn co ${firmware_repo} ${firmware_path} --force --quiet
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} firmware download completed." || error_msg "firmware download failed."
 
     # Download balethirq related files
     svn export ${depends_repo}/armbian-files/common-files/usr/sbin/balethirq.pl ${common_files}/usr/sbin --force
     svn export ${depends_repo}/armbian-files/common-files/etc/balance_irq ${common_files}/etc --force
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} balethirq download completed." || error_msg "balethirq download failed."
 
     # Download install/update and other related files
-    svn export ${script_repo}/root/usr/sbin ${common_files}/usr/sbin --force
+    svn export ${script_repo}/root/usr/sbin ${common_files}/usr/sbin --force --quiet
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} app/sbin download completed." || error_msg "app/sbin download failed."
     chmod +x ${common_files}/usr/sbin/*
-    svn export ${script_repo}/root/usr/share/amlogic ${common_files}/usr/share/amlogic --force
+    svn export ${script_repo}/root/usr/share/amlogic ${common_files}/usr/share/amlogic --force --quiet
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} app/share download completed." || error_msg "app/share download failed."
     chmod +x ${common_files}/usr/share/amlogic/*
 }
 
@@ -391,21 +400,12 @@ query_kernel() {
             # Select the kernel list
             kd="${k}"
             case "${k}" in
-            stable)
-                down_kernel_list=(${stable_kernel[*]})
-                ;;
-            flippy)
-                down_kernel_list=(${flippy_kernel[*]})
-                ;;
-            dev)
-                down_kernel_list=(${dev_kernel[*]})
-                ;;
-            beta)
-                down_kernel_list=(${beta_kernel[*]})
-                ;;
-            rk3588)
-                down_kernel_list=(${rk3588_kernel[*]})
-                ;;
+            stable) down_kernel_list=(${stable_kernel[*]}) ;;
+            flippy) down_kernel_list=(${flippy_kernel[*]}) ;;
+            dev) down_kernel_list=(${dev_kernel[*]}) ;;
+            beta) down_kernel_list=(${beta_kernel[*]}) ;;
+            rk3588) down_kernel_list=(${rk3588_kernel[*]}) ;;
+            h6) down_kernel_list=(${h6_kernel[*]}) ;;
             specific)
                 down_kernel_list=(${specific_kernel[*]})
                 kd="${specific_tags}"
@@ -449,28 +449,13 @@ query_kernel() {
 
             # Reset the kernel array to the latest kernel version
             case "${k}" in
-            stable)
-                unset stable_kernel
-                stable_kernel=(${tmp_arr_kernels[*]})
-                ;;
-            flippy)
-                unset flippy_kernel
-                flippy_kernel=(${tmp_arr_kernels[*]})
-                ;;
-            dev)
-                unset dev_kernel
-                dev_kernel=(${tmp_arr_kernels[*]})
-                ;;
-            beta)
-                unset beta_kernel
-                beta_kernel=(${tmp_arr_kernels[*]})
-                ;;
-            rk3588)
-                unset rk3588_kernel
-                rk3588_kernel=(${tmp_arr_kernels[*]})
-                ;;
+            stable) stable_kernel=(${tmp_arr_kernels[*]}) ;;
+            flippy) flippy_kernel=(${tmp_arr_kernels[*]}) ;;
+            dev) dev_kernel=(${tmp_arr_kernels[*]}) ;;
+            beta) beta_kernel=(${tmp_arr_kernels[*]}) ;;
+            rk3588) rk3588_kernel=(${tmp_arr_kernels[*]}) ;;
+            h6) h6_kernel=(${tmp_arr_kernels[*]}) ;;
             specific)
-                unset specific_kernel
                 specific_kernel=(${tmp_arr_kernels[*]})
                 ;;
             *) error_msg "Invalid tags." ;;
@@ -507,21 +492,12 @@ download_kernel() {
             # Set the kernel download list
             kd="${k}"
             case "${k}" in
-            stable)
-                down_kernel_list=(${stable_kernel[*]})
-                ;;
-            flippy)
-                down_kernel_list=(${flippy_kernel[*]})
-                ;;
-            dev)
-                down_kernel_list=(${dev_kernel[*]})
-                ;;
-            beta)
-                down_kernel_list=(${beta_kernel[*]})
-                ;;
-            rk3588)
-                down_kernel_list=(${rk3588_kernel[*]})
-                ;;
+            stable) down_kernel_list=(${stable_kernel[*]}) ;;
+            flippy) down_kernel_list=(${flippy_kernel[*]}) ;;
+            dev) down_kernel_list=(${dev_kernel[*]}) ;;
+            beta) down_kernel_list=(${beta_kernel[*]}) ;;
+            rk3588) down_kernel_list=(${rk3588_kernel[*]}) ;;
+            h6) down_kernel_list=(${h6_kernel[*]}) ;;
             specific)
                 down_kernel_list=(${specific_kernel[*]})
                 kd="${specific_tags}"
@@ -1101,21 +1077,12 @@ loop_make() {
             # Determine kernel tags
             kd="${KERNEL_TAGS}"
             case "${KERNEL_TAGS}" in
-            stable)
-                kernel_list=(${stable_kernel[*]})
-                ;;
-            flippy)
-                kernel_list=(${flippy_kernel[*]})
-                ;;
-            dev)
-                kernel_list=(${dev_kernel[*]})
-                ;;
-            beta)
-                kernel_list=(${beta_kernel[*]})
-                ;;
-            rk3588)
-                kernel_list=(${rk3588_kernel[*]})
-                ;;
+            stable) kernel_list=(${stable_kernel[*]}) ;;
+            flippy) kernel_list=(${flippy_kernel[*]}) ;;
+            dev) kernel_list=(${dev_kernel[*]}) ;;
+            beta) kernel_list=(${beta_kernel[*]}) ;;
+            rk3588) kernel_list=(${rk3588_kernel[*]}) ;;
+            h6) kernel_list=(${h6_kernel[*]}) ;;
             [0-9]*)
                 kernel_list=(${specific_kernel[*]})
                 kd="${specific_tags}"
