@@ -227,7 +227,7 @@ jobs:
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
           # Set up compilation source code
-          if [[ "${{ inputs.source_branch }}" == *"openwrt"* ]]; then
+          if [[ "${{ inputs.source_branch }}" == *"v23.05.0-rc3"* ]]; then
               REPO_URL="https://github.com/openwrt/openwrt"
               REPO_BRANCH="v23.05.0-rc3"
               TAGS_NAME="official"
