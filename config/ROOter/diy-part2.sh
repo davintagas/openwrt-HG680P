@@ -22,17 +22,10 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 
 # ------------------------------- Other started -------------------------------
 #
+sed -i 's/uqmi/rqmi/g' feeds/luci/protocols/luci-proto-qmi/Makefile
+
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
-
-# Add luci-proto-xmm
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-proto-xmm,xmm-modem} package/
-
-# Add modeminfp & atinout
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,modeminfo,luci-app-atinout,atinout,telegrambot} package/
-
-# Add modemband & sms-tool
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,modemband,luci-app-sms-tool,sms-tool} package/
 
 # Add internet-detector
 svn co https://github.com/gSpotx2f/luci-app-internet-detector/trunk/{luci-app-internet-detector,internet-detector} package/
