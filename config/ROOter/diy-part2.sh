@@ -23,6 +23,7 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # ------------------------------- Other started -------------------------------
 #
 sed -i 's/uqmi/rqmi/g' feeds/luci/protocols/luci-proto-qmi/Makefile
+sed -i 's/umbim/rmbim/g' feeds/luci/protocols/luci-proto-mbim/Makefile
 
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
