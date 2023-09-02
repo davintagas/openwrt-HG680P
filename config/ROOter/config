@@ -7439,5 +7439,3 @@ CONFIG_PACKAGE_whereis=y
 # CONFIG_PACKAGE_fontconfig is not set
 # end of Font-Utils
 # end of Xorg
-
-CONFIG_OVERRIDE_PKGS="luci-app-openwisp luci-proto-mbim luci-theme-material qfirehose"
