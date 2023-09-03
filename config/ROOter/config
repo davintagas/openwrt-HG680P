@@ -3040,7 +3040,7 @@ CONFIG_PACKAGE_libiwinfo-lua=y
 CONFIG_PACKAGE_lua=y
 # CONFIG_PACKAGE_lua-argparse is not set
 # CONFIG_PACKAGE_lua-bencode is not set
-# CONFIG_PACKAGE_lua-bit32 is not set
+CONFIG_PACKAGE_lua-bit32=y
 # CONFIG_PACKAGE_lua-cjson is not set
 # CONFIG_PACKAGE_lua-copas is not set
 # CONFIG_PACKAGE_lua-coxpcall is not set
@@ -3088,7 +3088,7 @@ CONFIG_LUA_ECO_OPENSSL=y
 # CONFIG_PACKAGE_luajit is not set
 # CONFIG_PACKAGE_lualanes is not set
 # CONFIG_PACKAGE_luaossl is not set
-# CONFIG_PACKAGE_luaposix is not set
+CONFIG_PACKAGE_luaposix=y
 # CONFIG_PACKAGE_luarocks is not set
 # CONFIG_PACKAGE_luasec is not set
 # CONFIG_PACKAGE_luasoap is not set
@@ -4740,7 +4740,7 @@ CONFIG_PACKAGE_libubox=y
 CONFIG_PACKAGE_libubus=y
 CONFIG_PACKAGE_libubus-lua=y
 CONFIG_PACKAGE_libuci=y
-# CONFIG_PACKAGE_libuci-lua is not set
+CONFIG_PACKAGE_libuci-lua=y
 # CONFIG_PACKAGE_libuci2 is not set
 CONFIG_PACKAGE_libuclient=y
 CONFIG_PACKAGE_libucode=y
@@ -4958,7 +4958,7 @@ CONFIG_PACKAGE_luci-app-firewall=y
 # CONFIG_PACKAGE_luci-app-hnet is not set
 CONFIG_PACKAGE_luci-app-hotspot=y
 # CONFIG_PACKAGE_luci-app-https-dns-proxy is not set
-# CONFIG_PACKAGE_luci-app-internet-detector is not set
+CONFIG_PACKAGE_luci-app-internet-detector=y
 # CONFIG_PACKAGE_luci-app-iperf is not set
 # CONFIG_PACKAGE_luci-app-keepalived is not set
 CONFIG_PACKAGE_luci-app-ksmbd=y
@@ -5186,6 +5186,7 @@ CONFIG_PACKAGE_luci-lib-nixio=y
 # CONFIG_PACKAGE_luci-i18n-firewall-vi is not set
 # CONFIG_PACKAGE_luci-i18n-firewall-zh-cn is not set
 # CONFIG_PACKAGE_luci-i18n-firewall-zh-tw is not set
+# CONFIG_PACKAGE_luci-i18n-internet-detector-ru is not set
 # CONFIG_PACKAGE_luci-i18n-ksmbd-ar is not set
 # CONFIG_PACKAGE_luci-i18n-ksmbd-bg is not set
 # CONFIG_PACKAGE_luci-i18n-ksmbd-bn is not set
@@ -6459,7 +6460,7 @@ CONFIG_PACKAGE_httping=y
 # CONFIG_PACKAGE_ifstat is not set
 CONFIG_PACKAGE_iftop=y
 # CONFIG_PACKAGE_iiod is not set
-# CONFIG_PACKAGE_internet-detector is not set
+CONFIG_PACKAGE_internet-detector=y
 # CONFIG_PACKAGE_iperf is not set
 CONFIG_PACKAGE_iperf3=y
 # CONFIG_PACKAGE_iperf3-ssl is not set
