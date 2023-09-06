@@ -48,6 +48,7 @@ sed -i 's|/cgi-bin/luci/admin/status/realtime|/cgi-bin/luci/admin/modem/modlog|g
 sed -i 's|/cgi-bin/luci/admin/system/admin|/cgi-bin/luci/admin/modem/sms|g' package/luci-theme-design/luasrc/view/themes/design/header.htm
 
 # Add default setting
+mkdir -p files/etc/uci-defaults
 pushd files/etc/uci-defaults
 wget https://raw.githubusercontent.com/davintagas/default/main/rooter/99-init-settings.sh
 popd
