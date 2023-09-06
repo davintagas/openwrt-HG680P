@@ -39,6 +39,11 @@ rm -rf feeds/packages/net/adguardhome
 svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome feeds/packages/net/adguardhome
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
+# Add default setting
+pushd files/etc/uci-defaults
+wget https://raw.githubusercontent.com/davintagas/default/main/rooter/99-init-settings.sh
+popd
+
 # coolsnowwolf default software package replaced with Lienol related software package
 # rm -rf feeds/packages/utils/{containerd,libnetwork,runc,tini}
 # svn co https://github.com/Lienol/openwrt-packages/trunk/utils/{containerd,libnetwork,runc,tini} feeds/packages/utils
