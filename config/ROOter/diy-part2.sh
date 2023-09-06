@@ -39,6 +39,14 @@ rm -rf feeds/packages/net/adguardhome
 svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome feeds/packages/net/adguardhome
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
+# Add theme design
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-theme-design package/luci-theme-design
+
+sed -i 's|/cgi-bin/luci/admin/status/overview|/cgi-bin/luci/admin/status/release_ram|g' package/luci-theme-design/luasrc/view/themes/design/header.htm
+sed -i 's|/cgi-bin/luci/admin/services/openclash|/cgi-bin/luci/admin/modem/nets|g' package/luci-theme-design/luasrc/view/themes/design/header.htm
+sed -i 's|/cgi-bin/luci/admin/status/realtime|/cgi-bin/luci/admin/modem/modlog|g' package/luci-theme-design/luasrc/view/themes/design/header.htm
+sed -i 's|/cgi-bin/luci/admin/system/admin|/cgi-bin/luci/admin/modem/sms|g' package/luci-theme-design/luasrc/view/themes/design/header.htm
+
 # Add default setting
 pushd files/etc/uci-defaults
 wget https://raw.githubusercontent.com/davintagas/default/main/rooter/99-init-settings.sh
