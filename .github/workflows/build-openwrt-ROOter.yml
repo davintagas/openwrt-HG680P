@@ -162,7 +162,7 @@ on:
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
-        default: "dev"
+        default: "stable"
         type: choice
         options:
           - stable
@@ -184,7 +184,7 @@ on:
         type: choice
         options:
           - angel
-          - yourname
+          - ROOter
 
 env:
   FEEDS_CONF: config/${{ inputs.source_branch }}/feeds.conf.default
@@ -241,7 +241,7 @@ jobs:
               REPO_BRANCH="master"
               TAGS_NAME="immortalwrt"
           elif [[ "${{ inputs.source_branch }}" == *"ROOter"* ]]; then
-              REPO_URL="https://github.com/ofmodemsandmen/ROOterSource2305.git"
+              REPO_URL="https://github.com/ofmodemsandmen/ROOterSource2203.git"
               REPO_BRANCH="main"
               TAGS_NAME="ROOter"
           else
