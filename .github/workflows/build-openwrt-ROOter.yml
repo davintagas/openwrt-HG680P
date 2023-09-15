@@ -241,7 +241,7 @@ jobs:
               REPO_BRANCH="master"
               TAGS_NAME="immortalwrt"
           elif [[ "${{ inputs.source_branch }}" == *"ROOter"* ]]; then
-              REPO_URL="https://github.com/ofmodemsandmen/ROOterSource2203.git"
+              REPO_URL="https://github.com/ofmodemsandmen/ROOterSource2305.git"
               REPO_BRANCH="main"
               TAGS_NAME="ROOter"
           else
