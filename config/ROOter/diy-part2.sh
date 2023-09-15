@@ -35,8 +35,8 @@ svn co https://github.com/gSpotx2f/luci-app-internet-detector/trunk/{luci-app-in
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
 
 # Add adguardhome
-rm -rf feeds/packages/net/adguardhome
-svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome feeds/packages/net/adguardhome
+# rm -rf feeds/packages/net/adguardhome
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome feeds/packages/net/adguardhome
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
 # Add theme design
