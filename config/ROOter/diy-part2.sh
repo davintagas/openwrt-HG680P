@@ -25,6 +25,9 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # sed -i 's/uqmi/rqmi/g' feeds/luci/protocols/luci-proto-qmi/Makefile
 # sed -i 's/umbim/rmbim/g' feeds/luci/protocols/luci-proto-mbim/Makefile
 
+# Add atinout
+svn co https://github.com/kiddin9/openwrt-packages/trunk/atinout package/atinout
+
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
