@@ -6741,7 +6741,7 @@ CONFIG_PACKAGE_rqmi=y
 #
 # Optional Applications
 #
-CONFIG_PACKAGE_bwallocate=y
+# CONFIG_PACKAGE_bwallocate is not set
 CONFIG_PACKAGE_bwmon=y
 CONFIG_PACKAGE_ext-autoapn=y
 # CONFIG_PACKAGE_ext-blacklist is not set
@@ -6757,7 +6757,7 @@ CONFIG_PACKAGE_ext-selectisp=y
 CONFIG_PACKAGE_ext-simplegps=y
 CONFIG_PACKAGE_ext-speedtest=y
 # CONFIG_PACKAGE_ext-texting is not set
-CONFIG_PACKAGE_ext-throttle=y
+# CONFIG_PACKAGE_ext-throttle is not set
 CONFIG_PACKAGE_ext-wireguard=y
 # CONFIG_PACKAGE_ext-zerotier is not set
 # CONFIG_PACKAGE_extramenu is not set
@@ -7704,3 +7704,5 @@ CONFIG_PACKAGE_whereis=y
 # CONFIG_PACKAGE_fontconfig is not set
 # end of Font-Utils
 # end of Xorg
+
+CONFIG_OVERRIDE_PKGS="luci-app-openwisp luci-proto-mbim qfirehose"
