@@ -137,6 +137,13 @@ custom_packages() {
     echo -e "${INFO} The [ ${amlogic_i18n} ] is downloaded successfully."
 
     # Download other luci-app-xxx
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/luci-proto-xmm_git-24.217.56735-8015371_all.ipk
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/xmm-modem_0.1.2-21_all.ipk
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/modeminfo_0.3.8-37_all.ipk
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/modeminfo-serial-xmm_0.3.8-37_all.ipk
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/luci-app-modeminfo_git-24.268.56206-eadba8b_all.ipk
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/luci-app-atinout_git-24.223.45126-00bc06a_all.ipk
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_cortex-a53/atinout_0.9.1_aarch64_cortex-a53.ipk
     # ......
 
     sync && sleep 3
@@ -184,7 +191,7 @@ rebuild_firmware() {
     # Selecting default packages, lib, theme, app and i18n, etc.
     # sorting by https://build.moz.one
     my_packages="\
-        acpid attr base-files bash bc blkid block-mount blockd bsdtar \
+        luci-proto-xmm xmm-modem luci-app-modeminfo modeminfo modeminfo-serial-xmm luci-app-atinout atinout acpid attr base-files bash bc blkid block-mount blockd bsdtar \
         btrfs-progs busybox bzip2 cgi-io chattr comgt comgt-ncm containerd coremark \
         coreutils coreutils-base64 coreutils-nohup coreutils-truncate curl docker \
         docker-compose dockerd dosfstools dumpe2fs e2freefrag e2fsprogs exfat-mkfs \
