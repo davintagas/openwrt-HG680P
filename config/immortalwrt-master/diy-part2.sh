@@ -46,7 +46,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree packag
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
 # Add mosdns
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-mosdns,mosdns} package/
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-mosdns,mosdns,v2dat} package/
 
 # Add default setting
 mkdir -p files/etc/uci-defaults
