@@ -204,6 +204,8 @@ rebuild_firmware() {
     # sorting by https://build.moz.one
     my_packages="\
         luci-proto-xmm modeminfo-serial-xmm adguardhome nano -dnsmasq dnsmasq-full \
+        luci-app-atinout luci-app-modeminfo luci-app-sms-tool luci-app-modemband \
+        luci-app-adguardhome openssh-sftp-server luci-app-smartdns \
         acpid attr base-files bash bc blkid block-mount blockd bsdtar \
         btrfs-progs busybox bzip2 cgi-io chattr comgt comgt-ncm containerd coremark \
         coreutils coreutils-base64 coreutils-nohup coreutils-truncate curl \
