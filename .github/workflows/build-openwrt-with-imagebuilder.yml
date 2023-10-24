@@ -15,7 +15,7 @@ on:
       releases_branch:
         description: "Select the releases branch"
         required: false
-        default: "openwrt:22.03.5"
+        default: "openwrt:23.05.0"
         type: choice
         options:
           - openwrt:22.03.5
@@ -23,10 +23,11 @@ on:
           - openwrt:19.07.10
           - openwrt:18.06.9
           - immortalwrt:21.02.7
+          - openwrt:23.05.0
       openwrt_board:
         description: "Select device board"
         required: false
-        default: "all"
+        default: "s905x"
         type: choice
         options:
           - all
@@ -143,7 +144,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "5.15.1_6.1.1"
+        default: "6.1.1"
         type: choice
         options:
           - 5.4.1_5.10.1
