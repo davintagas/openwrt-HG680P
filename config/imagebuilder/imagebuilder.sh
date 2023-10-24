@@ -168,6 +168,8 @@ custom_packages() {
     # Add internet-detector
     wget https://github.com/gSpotx2f/packages-openwrt/raw/master/current/internet-detector_1.0-3_all.ipk -q -P packages
     wget https://github.com/gSpotx2f/packages-openwrt/raw/master/current/luci-app-internet-detector_1.0-1_all.ipk -q -P packages
+    # Add ramfree
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-ramfree_git-24.217.56735-8015371_all.ipk -q -P packages
     # ......
 
     sync && sleep 3
@@ -199,8 +201,7 @@ custom_files() {
         # Copy custom files
         [[ -d "files" ]] || mkdir -p files
         cp -rf ${custom_files_path}/* files
-        mkdir -p files/etc/uci-defaults
-        wget https://raw.githubusercontent.com/davintagas/default/main/official/99-init-settings.sh -q -P files/etc/uci-defaults
+        wget https://raw.githubusercontent.com/davintagas/default/main/official/99-init-settings.sh -q -P files/etc/uci-defaults/
 
         sync && sleep 3
         echo -e "${INFO} [ files ] directory status: $(ls files -l 2>/dev/null)"
@@ -217,7 +218,7 @@ rebuild_firmware() {
     # Selecting default packages, lib, theme, app and i18n, etc.
     # sorting by https://build.moz.one
     my_packages="\
-        luci-proto-xmm modeminfo-serial-xmm adguardhome nano -dnsmasq dnsmasq-full \
+        luci-proto-xmm modeminfo-serial-xmm adguardhome nano -dnsmasq dnsmasq-full luci-app-ramfree \
         luci-app-atinout luci-app-modeminfo luci-app-sms-tool luci-app-modemband \
         luci-app-adguardhome openssh-sftp-server luci-app-smartdns luci-app-passwall \
         kmod-nft-socket kmod-nft-tproxy kmod-nft-nat luci-app-internet-detector autocore \
