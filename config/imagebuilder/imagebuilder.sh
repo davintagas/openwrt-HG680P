@@ -156,6 +156,18 @@ custom_packages() {
     # Add adguadhome
     wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/adguardhome_0.107.40-109_aarch64_generic.ipk -q -P packages
     wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-adguardhome_git-24.217.56735-8015371_all.ipk -q -P packages
+    # Add passwall
+    wget https://github.com/xiaorouji/openwrt-passwall/releases/download/4.71-2/luci-app-passwall_4.71-2_all.ipk -q -P packages
+    wget https://github.com/xiaorouji/openwrt-passwall/releases/download/4.71-2/passwall_packages_ipk_aarch64_generic.zip -q -P packages
+    unzip packages/passwall_packages_ipk_aarch64_generic.zip -d packages/
+    rm -rf packages/passwall_packages_ipk_aarch64_generic.zip
+    # Change luci-base && luci-mod-status && autocore
+    wget https://downloads.immortalwrt.org/releases/23.05.0-rc4/targets/armsr/armv8/packages/autocore_42_aarch64_generic.ipk -q -P packages
+    wget https://downloads.immortalwrt.org/releases/packages-23.05/aarch64_generic/luci/luci-base_git-23.274.11309-859245b_aarch64_generic.ipk -q -P packages
+    wget https://downloads.immortalwrt.org/releases/packages-23.05/aarch64_generic/luci/luci-mod-status_git-23.274.11309-859245b_aarch64_generic.ipk -q -P packages
+    # Add internet-detector
+    wget https://github.com/gSpotx2f/packages-openwrt/raw/master/current/internet-detector_1.0-3_all.ipk -q -P packages
+    wget https://github.com/gSpotx2f/packages-openwrt/raw/master/current/luci-app-internet-detector_1.0-1_all.ipk -q -P packages
     # ......
 
     sync && sleep 3
@@ -187,6 +199,8 @@ custom_files() {
         # Copy custom files
         [[ -d "files" ]] || mkdir -p files
         cp -rf ${custom_files_path}/* files
+        mkdir -p files/etc/uci-defaults
+        wget https://raw.githubusercontent.com/davintagas/default/main/official/99-init-settings.sh -q -P files/etc/uci-defaults
 
         sync && sleep 3
         echo -e "${INFO} [ files ] directory status: $(ls files -l 2>/dev/null)"
@@ -205,7 +219,8 @@ rebuild_firmware() {
     my_packages="\
         luci-proto-xmm modeminfo-serial-xmm adguardhome nano -dnsmasq dnsmasq-full \
         luci-app-atinout luci-app-modeminfo luci-app-sms-tool luci-app-modemband \
-        luci-app-adguardhome openssh-sftp-server luci-app-smartdns \
+        luci-app-adguardhome openssh-sftp-server luci-app-smartdns luci-app-passwall \
+        kmod-nft-socket kmod-nft-tproxy kmod-nft-nat luci-app-internet-detector autocore \
         acpid attr base-files bash bc blkid block-mount blockd bsdtar \
         btrfs-progs busybox bzip2 cgi-io chattr comgt comgt-ncm containerd coremark \
         coreutils coreutils-base64 coreutils-nohup coreutils-truncate curl \
