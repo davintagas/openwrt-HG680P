@@ -137,6 +137,25 @@ custom_packages() {
     echo -e "${INFO} The [ ${amlogic_i18n} ] is downloaded successfully."
 
     # Download other luci-app-xxx
+    # Add luci-proto-xmm
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-proto-xmm_git-24.217.56735-8015371_all.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/xmm-modem_0.1.2-21_all.ipk -q -P packages
+    # Add Modeminfo
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-modeminfo_git-24.268.56206-eadba8b_all.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/modeminfo_0.3.8-37_all.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/modeminfo-serial-xmm_0.3.8-37_all.ipk -q -P packages
+    # Add atinout
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-atinout_git-24.223.45126-00bc06a_all.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/atinout_0.9.1_aarch64_generic.ipk -q -P packages
+    # Add sms-tool
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-sms-tool_git-24.217.56735-8015371_all.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/sms-tool_2022-03-21-1b6ca032-20_aarch64_generic.ipk -q -P packages
+    # Add modemband
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-modemband_git-24.281.56149-c38422c_all.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/modemband_20231016-10_all.ipk -q -P packages
+    # Add adguadhome
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/adguardhome_0.107.40-109_aarch64_generic.ipk -q -P packages
+    wget https://dl.openwrt.ai/23.05/packages/aarch64_generic/kiddin9/luci-app-adguardhome_git-24.217.56735-8015371_all.ipk -q -P packages
     # ......
 
     sync && sleep 3
@@ -184,13 +203,14 @@ rebuild_firmware() {
     # Selecting default packages, lib, theme, app and i18n, etc.
     # sorting by https://build.moz.one
     my_packages="\
+        luci-proto-xmm modeminfo-serial-xmm adguardhome nano -dnsmasq dnsmasq-full \
         acpid attr base-files bash bc blkid block-mount blockd bsdtar \
         btrfs-progs busybox bzip2 cgi-io chattr comgt comgt-ncm containerd coremark \
-        coreutils coreutils-base64 coreutils-nohup coreutils-truncate curl docker \
-        docker-compose dockerd dosfstools dumpe2fs e2freefrag e2fsprogs exfat-mkfs \
+        coreutils coreutils-base64 coreutils-nohup coreutils-truncate curl \
+        dosfstools dumpe2fs e2freefrag e2fsprogs exfat-mkfs \
         f2fs-tools f2fsck fdisk gawk getopt gzip hostapd-common iconv iw iwinfo jq jshn \
         kmod-brcmfmac kmod-brcmutil kmod-cfg80211 kmod-mac80211 libjson-script \
-        liblucihttp liblucihttp-lua libnetwork losetup lsattr lsblk lscpu mkf2fs \
+        liblucihttp liblucihttp-lua losetup lsattr lsblk lscpu mkf2fs \
         mount-utils openssl-util parted perl-http-date perlbase-file perlbase-getopt \
         perlbase-time perlbase-unicode perlbase-utf8 pigz ppp ppp-mod-pppoe \
         proto-bonding pv rename resize2fs runc subversion-client subversion-libs tar \
@@ -198,11 +218,10 @@ rebuild_firmware() {
         uuidgen wget-ssl whereis which wpad-basic wwan xfs-fsck xfs-mkfs xz \
         xz-utils ziptool zoneinfo-asia zoneinfo-core zstd \
         \
-        luci luci-base luci-compat luci-i18n-base-en luci-i18n-base-zh-cn luci-lib-base  \
-        luci-lib-docker luci-lib-ip luci-lib-ipkg luci-lib-jsonc luci-lib-nixio  \
+        luci luci-base luci-compat luci-lib-base  \
+        luci-lib-ip luci-lib-ipkg luci-lib-jsonc luci-lib-nixio  \
         luci-mod-admin-full luci-mod-network luci-mod-status luci-mod-system  \
-        luci-proto-3g luci-proto-bonding luci-proto-ipip luci-proto-ipv6 luci-proto-ncm  \
-        luci-proto-openconnect luci-proto-ppp luci-proto-qmi luci-proto-relay  \
+        luci-proto-ncm  \
         \
         luci-app-amlogic luci-i18n-amlogic-zh-cn \
         \
