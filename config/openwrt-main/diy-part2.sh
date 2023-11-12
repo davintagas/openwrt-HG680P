@@ -25,21 +25,23 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
+rm -rf feeds/kiddin/{luci-app-aliyundrive-fuse,luci-app-bypass,luci-app-e2guardian}
+
 # Add driver l860-gl
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-proto-xmm,xmm-modem} package/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-proto-xmm,xmm-modem} package/
 
 # Add Modeminfo
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,modeminfo} package/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,modeminfo} package/
 
 # Add atinout
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-atinout,atinout} package/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-atinout,atinout} package/
 
 # Add sms
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-sms-tool,sms-tool} package/
-rm -rf feeds/packages/utils/sms-tool
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-sms-tool,sms-tool} package/
+# rm -rf feeds/packages/utils/sms-tool
 
 # Add modemband
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,modemband,telegrambot} package/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,modemband,telegrambot} package/
 
 # Add fullcone-nat
 # rm -rf package/network/config/firewall4
@@ -50,38 +52,38 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,mod
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
 # Add passwall
-rm -rf feeds/packages/net/xray-core
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-package
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
-rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata}
+# rm -rf feeds/packages/net/xray-core
+# git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-package
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
+# rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata}
 
 # Add ramfree
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
 
 # Change luci-base & status
-rm -rf feeds/luci/modules/{luci-base,luci-mod-status,luci-mod-network,luci-mod-system}
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status,luci-mod-network,luci-mod-system} feeds/luci/modules/
-svn co https://github.com/kiddin9/openwrt-packages/trunk/autocore package/autocore
+# rm -rf feeds/luci/modules/{luci-base,luci-mod-status,luci-mod-network,luci-mod-system}
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-base,luci-mod-status,luci-mod-network,luci-mod-system} feeds/luci/modules/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/autocore package/autocore
 
 # Add internet-detector
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-internet-detector/{luci-app-internet-detector,internet-detector} package/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-internet-detector/{luci-app-internet-detector,internet-detector} package/
 
 # Add theme
-git clone -b js --depth 1 https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
+# git clone -b js --depth 1 https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
 
 # Add luci-app-diskman
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-diskman package/luci-app-diskman
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-diskman package/luci-app-diskman
 
 # Add luci-app-fan
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-fan package/luci-app-fan
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-fan package/luci-app-fan
 
 # Add turboacc
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,dnsproxy,dnsforwarder,shortcut-fe,fullconenat} package/
 
 # Change smartdns
-rm -rf feeds/packages/net/smartdns
-rm -rf feeds/luci/applications/luci-app-smartdns
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-smartdns,smartdns} package/
+# rm -rf feeds/packages/net/smartdns
+# rm -rf feeds/luci/applications/luci-app-smartdns
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-smartdns,smartdns} package/
 
 # Change Golang
 # rm -rf feeds/packages/lang/golang
