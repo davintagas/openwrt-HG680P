@@ -61,7 +61,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,mod
 rm -rf feeds/luci/applications/luci-app-passwall
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-package
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci-smartdns-dev/luci-app-passwall package/luci-app-passwall
-rm -rf feeds/packages/net/{brook,chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan,trojan-go,trojan-plus,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
+rm -rf feeds/packages/net/{dnsproxy,brook,chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan,trojan-go,trojan-plus,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
 rm -rf feeds/packages/devel/gn
 
 # Add ramfree
@@ -87,7 +87,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-fan package/lu
 # Add turboacc
 rm -rf feeds/luci/applications/luci-app-turboacc
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-turboacc feeds/luci/applications/luci-app-turboacc
-svn co https://github.com/kiddin9/openwrt-packages/trunk/shortcut-fe package/shortcut-fe
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{dnsproxy,shortcut-fe} package/
 
 # Change smartdns
 rm -rf feeds/packages/net/smartdns
