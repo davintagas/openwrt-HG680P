@@ -61,7 +61,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-firewall feeds
 rm -rf feeds/packages/net/xray-core
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-package
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci-smartdns-dev/luci-app-passwall package/luci-app-passwall
-# rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata}
+rm -rf feeds/packages/net/{dnsproxy,microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata}
 
 # Add ramfree
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
