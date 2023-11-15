@@ -42,17 +42,17 @@ rm -rf feeds/packages/utils/sms-tool
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,modemband,telegrambot} package/
 
 # Add fullcone-nat
-rm -rf package/network/config/firewall4
-rm -rf package/network/utils/nftables
-rm -rf package/libs/libnftnl
-svn co https://github.com/kiddin9/openwrt-packages/trunk/firewall4 package/network/config/firewall4
-svn co https://github.com/kiddin9/openwrt-packages/trunk/nftables package/network/utils/nftables
-svn co https://github.com/kiddin9/openwrt-packages/trunk/libnftnl package/libs/libnftnl
-svn co https://github.com/kiddin9/openwrt-packages/trunk/fullconenat-nft package/fullconenat-nft
+# rm -rf package/network/config/firewall4
+# rm -rf package/network/utils/nftables
+# rm -rf package/libs/libnftnl
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/firewall4 package/network/config/firewall4
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/nftables package/network/utils/nftables
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/libnftnl package/libs/libnftnl
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/fullconenat-nft package/fullconenat-nft
 
 # Change luci-app-firewall
-rm -rf feeds/luci/applications/luci-app-firewall
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-firewall feeds/luci/applications/luci-app-firewall
+# rm -rf feeds/luci/applications/luci-app-firewall
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-firewall feeds/luci/applications/luci-app-firewall
 
 # Add adguardhome
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
@@ -60,7 +60,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-firewall feeds
 # Add passwall
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{brook,chinadns-ng,dns2socks,dns2tcp,gn,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box,ssocks,tcping,trojan-go,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin} package/
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci-smartdns-dev/luci-app-passwall package/luci-app-passwall
-rm -rf feeds/packages/net/{dnsproxy,microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata}
+rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata,xray-core}
 
 # Add ramfree
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
@@ -83,7 +83,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-diskman packag
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-fan package/luci-app-fan
 
 # Add turboacc
-svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,dnsproxy,dnsforwarder,shortcut-fe} package/
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-turboacc,dnsproxy,dnsforwarder,shortcut-fe} package/
 
 # Change smartdns
 rm -rf feeds/packages/net/smartdns
