@@ -91,8 +91,8 @@ rm -rf feeds/luci/applications/luci-app-smartdns
 svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-smartdns,smartdns} package/
 
 # Change Golang
-# rm -rf feeds/packages/lang/golang
-# svn co https://github.com/openwrt/packages/branches/openwrt-23.05/lang/golang feeds/packages/lang/golang
+rm -rf feeds/packages/lang/golang
+# svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
 
 # Set timezone
 mkdir -p files/etc/uci-defaults
