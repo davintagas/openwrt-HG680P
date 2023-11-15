@@ -92,7 +92,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-smartdns,smar
 
 # Change Golang
 rm -rf feeds/packages/lang/golang
-# svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
+svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
 
 # Set timezone
 mkdir -p files/etc/uci-defaults
