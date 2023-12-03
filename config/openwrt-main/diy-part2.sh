@@ -25,18 +25,50 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
-# coolsnowwolf default software package replaced with Lienol related software package
-# rm -rf feeds/packages/utils/{containerd,libnetwork,runc,tini}
-# svn co https://github.com/Lienol/openwrt-packages/trunk/utils/{containerd,libnetwork,runc,tini} feeds/packages/utils
+# Add modeminfo
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modeminfo,modeminfo,telegrambot} package/
 
-# Add third-party software packages (The entire repository)
-# git clone https://github.com/libremesh/lime-packages.git package/lime-packages
-# Add third-party software packages (Specify the package)
-# svn co https://github.com/libremesh/lime-packages/trunk/packages/{shared-state-pirania,pirania-app,pirania} package/lime-packages/packages
-# Add to compile options (Add related dependencies according to the requirements of the third-party software package Makefile)
-# sed -i "/DEFAULT_PACKAGES/ s/$/ pirania-app pirania ip6tables-mod-nat ipset shared-state-pirania uhttpd-mod-lua/" target/linux/armvirt/Makefile
+# Add atinout
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-atinout,atinout} package/
 
-# Apply patch
-# git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
-#
+# Add driver L860-GL
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-proto-xmm,xmm-modem} package/
+
+# Add modemband
+svn co https://github.com/kiddin9/openwrt-packages/trunk/{luci-app-modemband,modemband} package/
+
+# Add sms-tool
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-sms-tool package/luci-app-sms-tool
+
+# Change Adguardhome
+rm -rf feeds/packages/net/adguardhome
+svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome feeds/packages/net/adguardhome
+
+# Add internet-detector
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-internet-detector package/luci-app-internet-detector
+
+# Add passwall
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-package
+
+# Add autocore
+svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-23.05/package/emortal/autocore package/autocore
+
+# Change luci-base && luci-mod-status
+rm -rf feeds/luci/modules/{luci-base,luci-mod-status}
+svn co https://github.com/immortalwrt/luci/branches/openwrt-23.05/modules/{luci-base,luci-mod-status} feeds/luci/modules/
+
+# Add ramfree
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ramfree package/luci-app-ramfree
+
+# Add diskman
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-diskman package/luci-app-diskman
+
+# Set timezone
+mkdir -p files/etc/uci-defaults
+pushd files/etc/uci-defaults
+wget https://raw.githubusercontent.com/davintagas/default/main/official/99-init-settings.sh
+popd
+
+
 # ------------------------------- Other ends -------------------------------
