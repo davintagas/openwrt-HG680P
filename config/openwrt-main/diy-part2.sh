@@ -50,7 +50,8 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-internet-detec
 # Add passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-package
-rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata,xray-core}
+rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata}
+rm -rf package/passwall-package/xray-core
 
 # Add autocore
 svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-23.05/package/emortal/autocore package/autocore
