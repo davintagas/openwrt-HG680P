@@ -25,6 +25,13 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # Add luci-app-amlogic
 rm -rf package/luci-app-amlogic
 git clone https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
+
+# Add Custom Packges
+git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin
+cp -r package/kiddin/{luci-app-modeminfo,modeminfo,luci-app-modemband,modemband,luci-proto-xmm,xmm-modem,telegrambot,luci-app-sms-tool,luci-app-internet-detector,autocore} package/
+rm -rf feeds/luci/modules/{luci-base,luci-mod-status,luci-mod-network}
+cp -r package/kiddin/{luci-base,luci-mod-status,luci-mod-network} feeds/luci/modules/
+rm -rf package/kiddin
 #
 # Apply patch
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
