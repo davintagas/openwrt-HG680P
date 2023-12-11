@@ -28,10 +28,43 @@ git clone https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
 
 # Add Custom Packges
 git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin
-cp -r package/kiddin/{luci-app-atinout,atinout,luci-app-modeminfo,modeminfo,luci-app-modemband,modemband,luci-proto-xmm,xmm-modem,telegrambot,luci-app-sms-tool,luci-app-internet-detector,autocore} package/
-rm -rf feeds/luci/modules/{luci-base,luci-mod-status,luci-mod-network}
-cp -r package/kiddin/{luci-base,luci-mod-status,luci-mod-network} feeds/luci/modules/
+# Add modeminfo
+cp -r package/kiddin/{luci-app-modeminfo,modeminfo,telegrambot,luci-app-modemband,modemband,luci-app-atinout,atinout,luci-app-sms-tool} package/
+# Add internet-detector
+cp -r package/kiddin/luci-app-internet-detector package/
+# Add autocore
+cp -r package/kiddin/autocore package/
+# Change luci-base
+rm -rf feeds/luci/modules/{luci-base,luci-mod-status,luci-mod-network,luci-mod-system}
+cp -r package/kiddin/{luci-base,luci-mod-network,luci-mod-status,luci-mod-system} feeds/luci/modules/
+# Add openclash
+cp -r package/kiddin/luci-app-openclash package/
+# Add ramfree
+cp -r package/kiddin/luci-app-ramfree package/
+# Add passwall
+cp -r package/kiddin/{luci-app-passwall,lua-maxminddb,brook,chinadns-ng,dns2socks,dns2tcp,gn,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box,ssocks,tcping,trojan-go,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin} package/
+# Change smartdns
+rm -rf feeds/luci/applications/luci-app-smartdns
+rm -rf feeds/packages/net/smartdns
+cp -r package/kiddin/luci-app-smartdns feeds/luci/applications/
+cp -r package/kiddin/smartdns feeds/packages/net/
+# Change adguardhome
+rm -rf feeds/packages/net/adguardhome
+cp -r package/kiddin/adguardhome feeds/packages/net/
+# Change Golang
+git clone -b master --depth 1 https://github.com/openwrt/packages.git package/openwrt-golang
+rm -rf feeds/packages/lang/golang
+cp -r package/openwrt-golang/lang/golang feeds/packages/lang/
+rm -rf package/openwrt-golang
+# Add timezone
+mkdir -p files/etc/uci-defaults
+pushd files/etc/uci-defaults
+wget https://raw.githubusercontent.com/davintagas/default/main/official/99-init-settings.sh
+popd
+
+# clear
 rm -rf package/kiddin
+
 #
 # Apply patch
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
