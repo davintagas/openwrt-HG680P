@@ -59,6 +59,8 @@ git clone -b master --depth 1 https://github.com/openwrt/packages.git package/op
 rm -rf feeds/packages/lang/golang
 cp -r package/openwrt-golang/lang/golang feeds/packages/lang/
 rm -rf package/openwrt-golang
+# Add theme
+cp -r package/kiddin/{luci-theme-design,luci-theme-argon,luci-app-design-config,luci-app-argon-config} package/
 # Add timezone
 mkdir -p files/etc/uci-defaults
 pushd files/etc/uci-defaults
