@@ -30,6 +30,8 @@ git clone https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
 git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin
 # Add modeminfo
 cp -r package/kiddin/{luci-app-modeminfo,modeminfo,telegrambot,luci-app-modemband,modemband,luci-app-atinout,atinout,luci-app-sms-tool} package/
+# Add driver L860
+cp -r package/kiddin/{luci-proto-xmm,xmm-modem} package/
 # Add internet-detector
 cp -r package/kiddin/luci-app-internet-detector package/
 # Add autocore
@@ -43,6 +45,7 @@ cp -r package/kiddin/luci-app-openclash package/
 cp -r package/kiddin/luci-app-ramfree package/
 # Add passwall
 cp -r package/kiddin/{luci-app-passwall,lua-maxminddb,brook,chinadns-ng,dns2socks,dns2tcp,gn,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box,ssocks,tcping,trojan-go,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin} package/
+rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata,xray-core}
 # Change smartdns
 rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/packages/net/smartdns
