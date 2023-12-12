@@ -64,6 +64,7 @@ cp -r package/kiddin/{luci-theme-design,luci-theme-argon,luci-app-design-config,
 # Other
 rm -rf package/network/config/firewall4
 cp -r package/kiddin/firewall4 package/network/config/
+cp -r package/kiddin/fullconenat-nft package/
 rm -rf package/network/services/dnsmasq
 cp -r package/kiddin/dnsmasq package/network/services/
 rm -rf package/network/utils/nftables
