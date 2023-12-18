@@ -25,9 +25,29 @@ echo "DISTRIB_SOURCECODE='immortalwrt'" >>package/base-files/files/etc/openwrt_r
 # Add luci-app-amlogic
 rm -rf package/luci-app-amlogic
 git clone https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
+
+# Add Custom Packges
+git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin
+# Add modeminfo
+cp -r package/kiddin/{luci-app-modeminfo,modeminfo,telegrambot,luci-app-modemband,modemband,luci-app-atinout,atinout,luci-app-sms-tool,sms-tool} package/
+# Add driver L860
+cp -r package/kiddin/{luci-proto-xmm,xmm-modem} package/
+# Add internet-detector
+cp -r package/kiddin/luci-app-internet-detector package/
+# Change smartdns
+rm -rf feeds/luci/applications/luci-app-smartdns
+rm -rf feeds/packages/net/smartdns
+cp -r package/kiddin/luci-app-smartdns feeds/luci/applications/
+cp -r package/kiddin/smartdns feeds/packages/net/
+# Add timezone
+mkdir -p files/etc/uci-defaults
+pushd files/etc/uci-defaults
+wget https://raw.githubusercontent.com/davintagas/default/main/official/99-init-settings.sh
+popd
+
+rm -rf package/kiddin
 #
 # Apply patch
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
 #
 # ------------------------------- Other ends -------------------------------
-
