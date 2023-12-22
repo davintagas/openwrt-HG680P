@@ -46,6 +46,7 @@ cp -r package/kiddin/luci-app-ramfree package/
 # Add passwall
 git clone -b main --depth 1 https://github.com/xiaorouji/openwrt-passwall.git package/luci-app-passwall
 git clone -b main --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+rm -rf package/passwall-packages/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata,xray-core}
 # Change smartdns
 rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/packages/net/smartdns
