@@ -44,8 +44,8 @@ cp -r package/kiddin/luci-app-openclash package/
 # Add ramfree
 cp -r package/kiddin/luci-app-ramfree package/
 # Add passwall
-cp -r package/kiddin/{luci-app-passwall,v2ray-core,v2ray-geodata,lua-maxminddb,brook,chinadns-ng,dns2socks,dns2tcp,gn,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box,ssocks,tcping,trojan-go,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin} package/
-rm -rf feeds/packages/net/{microsocks,sing-box,trojan-go,v2ray-core,v2ray-geodata,xray-core}
+git clone -b main --depth 1 https://github.com/xiaorouji/openwrt-passwall.git package/luci-app-passwall
+git clone -b main --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 # Change smartdns
 rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/packages/net/smartdns
