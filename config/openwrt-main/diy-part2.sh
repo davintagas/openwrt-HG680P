@@ -63,17 +63,17 @@ rm -rf package/openwrt-golang
 # Add theme
 cp -r package/kiddin/{luci-theme-design,luci-theme-argon,luci-app-design-config,luci-app-argon-config} package/
 # Other
-rm -rf package/network/config/firewall4
-cp -r package/kiddin/firewall4 package/network/config/
-cp -r package/kiddin/fullconenat-nft package/
-rm -rf feeds/luci/applications/luci-app-firewall
-cp -r package/kiddin/luci-app-firewall feeds/luci/applications/
-rm -rf package/network/services/dnsmasq
-cp -r package/kiddin/dnsmasq package/network/services/
-rm -rf package/network/utils/nftables
-cp -r package/kiddin/nftables package/network/utils/
-rm -rf package/libs/libnftnl
-cp -r package/kiddin/libnftnl package/libs/
+# rm -rf package/network/config/firewall4
+# cp -r package/kiddin/firewall4 package/network/config/
+# cp -r package/kiddin/fullconenat-nft package/
+# rm -rf feeds/luci/applications/luci-app-firewall
+# cp -r package/kiddin/luci-app-firewall feeds/luci/applications/
+# rm -rf package/network/services/dnsmasq
+# cp -r package/kiddin/dnsmasq package/network/services/
+# rm -rf package/network/utils/nftables
+# cp -r package/kiddin/nftables package/network/utils/
+# rm -rf package/libs/libnftnl
+# cp -r package/kiddin/libnftnl package/libs/
 # Add timezone
 mkdir -p files/etc/uci-defaults
 pushd files/etc/uci-defaults
