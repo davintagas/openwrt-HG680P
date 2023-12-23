@@ -12,6 +12,7 @@
 # Copyright (C) 2020~ https://github.com/openwrt/openwrt
 # Copyright (C) 2020~ https://github.com/coolsnowwolf/lede
 # Copyright (C) 2020~ https://github.com/immortalwrt/immortalwrt
+# Copyright (C) 2023~ https://github.com/istoreos/istoreos
 # Copyright (C) 2020~ https://github.com/unifreq/openwrt_packit
 # Copyright (C) 2021~ https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/CONTRIBUTORS.md
 # Copyright (C) 2020~ https://github.com/ophub/amlogic-s9xxx-openwrt
@@ -326,6 +327,7 @@ find_openwrt() {
             official) OPENWRT_SOURCECODE="github.com/openwrt/openwrt" ;;
             lede) OPENWRT_SOURCECODE="github.com/coolsnowwolf/lede" ;;
             immortalwrt) OPENWRT_SOURCECODE="github.com/immortalwrt/immortalwrt" ;;
+            istoreos) OPENWRT_SOURCECODE="github.com/istoreos/istoreos" ;;
             *) OPENWRT_SOURCECODE="unknown" ;;
             esac
 

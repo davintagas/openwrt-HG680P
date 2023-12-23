@@ -226,6 +226,7 @@ sudo apt-get install -y $(curl -fsSL https://is.gd/depend_ubuntu2204_openwrt)
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [coolsnowwolf](https://github.com/coolsnowwolf/lede)
 - [immortalwrt](https://github.com/immortalwrt/immortalwrt)
+- [istoreos](https://github.com/istoreos/istoreos)
 
 ## License
 

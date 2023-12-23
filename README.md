@@ -225,8 +225,8 @@ The [u-boot](https://github.com/ophub/u-boot), [kernel](https://github.com/ophub
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [coolsnowwolf](https://github.com/coolsnowwolf/lede)
 - [immortalwrt](https://github.com/immortalwrt/immortalwrt)
+- [istoreos](https://github.com/istoreos/istoreos)
 
 ## License
 
 The amlogic-s9xxx-openwrt © OPHUB is licensed under [GPL-2.0](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/LICENSE)
-
