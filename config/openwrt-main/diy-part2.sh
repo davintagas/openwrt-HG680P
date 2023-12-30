@@ -61,7 +61,8 @@ rm -rf feeds/packages/lang/golang
 cp -r package/openwrt-golang/lang/golang feeds/packages/lang/
 rm -rf package/openwrt-golang
 # Add theme
-cp -r package/kiddin/{luci-theme-design,luci-theme-argon,luci-app-design-config,luci-app-argon-config} package/
+cp -r package/kiddin/{luci-theme-argon,luci-app-argon-config} package/
+git clone -b js --depth 1 https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
 # Other
 # rm -rf package/network/config/firewall4
 # cp -r package/kiddin/firewall4 package/network/config/
